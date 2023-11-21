@@ -8,6 +8,11 @@ function setupEventListener() {
   identifierAudioMap.set("block", "Sounds/Ooga.mp3");
   identifierAudioMap.set("huge", "Sounds/BabaBooey sound.mp3");
   var audio = new Audio();
+  // Add an event listener for the 'ended' event
+  audio.addEventListener("ended", function () {
+    // reset function to be executed when the audio has finished playing
+    audio.src = "";
+  });
   // onload -> add event listener to input holder
   const element = document.getElementById("buttonHolder");
   element.addEventListener("click", function (e) {
@@ -20,12 +25,12 @@ function setupEventListener() {
     }
     // stop music altogether
     if (window.location.origin + "/" + path === audio.src) {
+      audio.src = "";
       audio.pause();
       return;
     }
-
     audio.src = path;
-    audio.volume = 0.2;
+    audio.volume = 0.8;
     audio.pause();
     audio.play();
   });
